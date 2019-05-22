@@ -235,7 +235,7 @@ Private Sub TotalVal(SheetName As String)
         'It is not necesary to check if the next row is empty in excel
         'Capture the current value
         VolVal = VolVal + MWs.Cells(RowIndex, VolumneColumn).Value
-        ' Check if the ticker is diferent
+        ' Check if the ticker is diferent, adding OpenStock to the if condition to ignore 0 values for Open Stock
         If MWs.Cells(RowIndex, TickerColumnIndex).Value <> MWs.Cells(RowIndex + 1, TickerColumnIndex).Value And OpenStock Then
             'Update the total value in the proper cell
             TickerName = MWs.Cells(RowIndex, TickerColumnIndex).Value
@@ -247,12 +247,14 @@ Private Sub TotalVal(SheetName As String)
             'Get the close value
             StockDiff = MWs.Cells(RowIndex, CloseStockColumn).Value
             StockDiff = StockDiff - OpenStock
-            'Calculate Percentage change
-            'If OpenStock Then
-            '    PercentChange = StockDiff / OpenStock
-            'Else
-            '    PercentChange = StockDiff
-            'End If
+            'Calculate Percentage change if OpenStock set to 0 display a message
+            If OpenStock Then
+                PercentChange = StockDiff / OpenStock
+            Else
+                MsgStr = "Program not able to ignore open stock set to 0"
+                MsgBox MsgStr, vbCritical, "Null Open Stock"
+                PercentChange = StockDiff
+            End If
             'Update cells
             PercentChange = StockDiff / OpenStock
             '[-]   Percentage
