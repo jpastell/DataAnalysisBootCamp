@@ -1,3 +1,4 @@
+
 'Structure used as data container for
 'lower or higer value comparison
 Type DataCont
@@ -336,6 +337,7 @@ Sub StockAnalysis()
     For Each CurrentWs In Worksheets
         TotalVal CurrentWs.Name
     Next
+    MsgBox "Stock analysis completed", vbInformation, "Operation completed"
 End Sub
 
 Sub CleanStockAnalysis()
@@ -349,5 +351,21 @@ Sub CleanStockAnalysis()
         EraseTable MWs:=MWs, RowPar:=SumTableRow, ColPar:=SumTableCol
         EraseTable MWs:=MWs, RowPar:=MaxTableRow, ColPar:=MaxTableCol
     Next
+    MsgBox "Stock analysis clean up completed", vbInformation, "Operation completed"
 End Sub
+
+
+Public Sub AnalysisSelection()
+    Dim myInputBoxVariable As String
+    myInputBoxVariable = InputBox("Please type the number for one of the following options" & vbLf & vbLf & "1. Perform stock analysis" & vbLf & "2. Clean stock analysis ")
+    Select Case myInputBoxVariable
+            Case 1
+                StockAnalysis
+            Case 2
+                CleanStockAnalysis
+            Case Else
+                MsgBox "No operation was performed", vbCritical, "Warning"
+        End Select
+End Sub
+
 
