@@ -58,7 +58,7 @@ Private Sub UpdateMin(ByRef Container As DataCont, Ticker As String, NewVal As D
     End If
 End Sub
 
-Private Sub UpdateGratest(ByRef MyWs As Worksheet, ByRef MyInc  As DataCont, ByRef MyDec  As DataCont, ByRef MyVol  As DataCont)
+Private Sub UpdateGratest(ByRef MyWs As Worksheet, ByRef MyInc As DataCont, ByRef MyDec As DataCont, ByRef MyVol As DataCont)
     'Function used to update the gratest values
     'Args:
     '   MyWs (Worksheet):   Reference to the worksheet
@@ -72,8 +72,8 @@ Private Sub UpdateGratest(ByRef MyWs As Worksheet, ByRef MyInc  As DataCont, ByR
     Const RowStart As Integer = 1
     Const ColumnStart As Integer = 14
     'Varibale to move arround the table
-    Dim ColumnIndex as Integer
-    Dim RowIndex as Integer
+    Dim ColumnIndex As Integer
+    Dim RowIndex As Integer
 
     'Headers moving arround columns
     ColumnIndex = ColumnStart
@@ -81,53 +81,99 @@ Private Sub UpdateGratest(ByRef MyWs As Worksheet, ByRef MyInc  As DataCont, ByR
     MyWs.Cells(RowIndex, ColumnIndex).Value = "Category"
     MyWs.Cells(RowIndex, ColumnIndex).EntireColumn.AutoFit
     MyWs.Cells(RowIndex, ColumnIndex).Font.Bold = True
-    ColumnIndex=ColumnIndex+1
+    ColumnIndex = ColumnIndex + 1
     MyWs.Cells(RowIndex, ColumnIndex).Value = "Ticker"
     MyWs.Cells(RowIndex, ColumnIndex).EntireColumn.AutoFit
     MyWs.Cells(RowIndex, ColumnIndex).Font.Bold = True
-    ColumnIndex=ColumnIndex+1
+    ColumnIndex = ColumnIndex + 1
     MyWs.Cells(RowIndex, ColumnIndex).Value = "Value"
     MyWs.Cells(RowIndex, ColumnIndex).EntireColumn.AutoFit
     MyWs.Cells(RowIndex, ColumnIndex).Font.Bold = True
     'Update Greatest increase
     ColumnIndex = ColumnStart
-    RowIndex = RowIndex+1 
+    RowIndex = RowIndex + 1
     MyWs.Cells(RowIndex, ColumnIndex).Value = "Greatest % Increase"
     MyWs.Cells(RowIndex, ColumnIndex).Font.Bold = True
     MyWs.Cells(RowIndex, ColumnIndex).EntireColumn.AutoFit
-    ColumnIndex=ColumnIndex+1
+    ColumnIndex = ColumnIndex + 1
     MyWs.Cells(RowIndex, ColumnIndex).Value = MyInc.Ticker
     MyWs.Cells(RowIndex, ColumnIndex).EntireColumn.AutoFit
-    ColumnIndex=ColumnIndex+1
+    ColumnIndex = ColumnIndex + 1
     MyWs.Cells(RowIndex, ColumnIndex).Value = MyInc.ContVal
     MyWs.Cells(RowIndex, ColumnIndex).NumberFormat = "0.00%"
     MyWs.Cells(RowIndex, ColumnIndex).EntireColumn.AutoFit
     'Update Greatest decrease
     ColumnIndex = ColumnStart
-    RowIndex = RowIndex+1 
+    RowIndex = RowIndex + 1
     MyWs.Cells(RowIndex, ColumnIndex).Value = "Greatest % Decrease"
     MyWs.Cells(RowIndex, ColumnIndex).Font.Bold = True
     MyWs.Cells(RowIndex, ColumnIndex).EntireColumn.AutoFit
-    ColumnIndex=ColumnIndex+1
+    ColumnIndex = ColumnIndex + 1
     MyWs.Cells(RowIndex, ColumnIndex).Value = MyDec.Ticker
     MyWs.Cells(RowIndex, ColumnIndex).EntireColumn.AutoFit
-    ColumnIndex=ColumnIndex+1
+    ColumnIndex = ColumnIndex + 1
     MyWs.Cells(RowIndex, ColumnIndex).Value = MyDec.ContVal
     MyWs.Cells(RowIndex, ColumnIndex).NumberFormat = "0.00%"
     MyWs.Cells(RowIndex, ColumnIndex).EntireColumn.AutoFit
     'Update Greatest Volume
     ColumnIndex = ColumnStart
-    RowIndex = RowIndex+1 
+    RowIndex = RowIndex + 1
     MyWs.Cells(RowIndex, ColumnIndex).Value = "Greatest Total Volume"
     MyWs.Cells(RowIndex, ColumnIndex).Font.Bold = True
     MyWs.Cells(RowIndex, ColumnIndex).EntireColumn.AutoFit
-    ColumnIndex=ColumnIndex+1
+    ColumnIndex = ColumnIndex + 1
     MyWs.Cells(RowIndex, ColumnIndex).Value = MyVol.Ticker
     MyWs.Cells(RowIndex, ColumnIndex).EntireColumn.AutoFit
-    ColumnIndex=ColumnIndex+1
+    ColumnIndex = ColumnIndex + 1
     MyWs.Cells(RowIndex, ColumnIndex).Value = MyVol.ContVal
     MyWs.Cells(RowIndex, ColumnIndex).EntireColumn.AutoFit
 End Sub
+
+Private Sub EraseTable(SheetName As String, RowPar As Long, ColPar As Long)
+    'Function used to erase a table, a column and row are passed as
+    'parametrs for the upper letf corner of the table. The function
+    'will iterate colums and rows until it finds and empty cells and
+    'erase the content in the matrix
+    '
+    'Args:
+    '   SheetName (string): Name of the worksheet to process
+    '   RowPar (Long):      Row for upper left corner of the table to erase
+    '   ColPar (Long):      Column for upper left corner of the table to erase
+    'Returns:
+    '   None
+
+    'Variable used for sheet managment
+    Dim MWs As Worksheet
+    'Row and Columns variables
+    Dim RowIndex As Long
+    Dim ColIndex As Long
+
+    'Construct the work sheet object
+    Set MWs = ActiveWorkbook.Worksheets(SheetName)
+    
+    'Init row and column for table erasing
+    RowIndex = RowPar
+    ColIndex = ColPar
+
+    ' [-] Row loop
+    While Not IsEmpty(MWs.Cells(RowIndex, ColIndex).Value)
+        '  Reset the colum value for each row iteration
+         ColIndex = ColPar
+        ' [-] Column loop
+        While Not IsEmpty(MWs.Cells(RowIndex, ColIndex).Value)
+            'Clear the cell value and format
+            MWs.Cells(RowIndex, ColIndex).ClearContents
+            MWs.Cells(RowIndex, ColIndex).ClearFormats
+            ' Increment the column value
+            ColIndex = ColIndex + 1
+        Wend
+        ' Increment the row value, move to the next row
+        RowIndex = RowIndex + 1
+        ' Reset Colum Value to avoid exit the loop
+        ColIndex = ColPar
+    Wend
+End Sub
+
 
 
 
@@ -290,15 +336,24 @@ Private Sub TotalVal(SheetName As String)
 End Sub
 
 
-Sub Stocks()
-    Dim t As Single
-    t = Timer
+Sub StockAnalysis()
     For Each CurrentWs In Worksheets
         TotalVal CurrentWs.Name
     Next
-    MsgBox Timer - t
 End Sub
 
+Sub CleanStockAnalysis()
+    Const SumTableRow As Integer = 1
+    Const SumTableCol As Integer = 9
+    Const MaxTableRow As Integer = 1
+    Const MaxTableCol As Integer = 14
 
+    For Each CurrentWs In Worksheets
+        EraseTable SheetName:=CurrentWs.Name, RowPar:=SumTableRow, ColPar:=SumTableCol
+        EraseTable SheetName:=CurrentWs.Name, RowPar:=MaxTableRow, ColPar:=MaxTableCol
+    Next
 
+    
+
+End Sub
 
