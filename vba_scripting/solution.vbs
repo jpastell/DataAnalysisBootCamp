@@ -1,15 +1,17 @@
+'VBA module used to perform stock data analysis using excel
+'Author Juan Pablo Castellanos
 
-'Structure used as data container for
-'lower or higer value comparison
 Type DataCont
-     Init As Boolean    'When set to true means the value is initlized
-     ContVal As Double  'Value dfor the item to recond
-     Ticker As String   'Ticker associated to teh value
+    'Structure used as data container for
+    'lower or higher value comparison
+     Init As Boolean    'When set to true means the value is unitized
+     ContVal As Double  'Value for the item to record
+     Ticker As String   'Ticker associated to the value
 End Type
 
 
 Private Sub InitDatCont(ByRef Container As DataCont)
-    'Function used to initilize a data container
+    'Function used to initialize a data container
     'Args:
     '  Container (DataCont): Container reference to the container
     'Returns:
@@ -27,7 +29,6 @@ Private Sub UpdateMax(ByRef Container As DataCont, Ticker As String, NewVal As D
     '   NewVal (Double) :   Value to compare
     'Returns:
     '   None
-
     If Container.Init Then
         If NewVal > Container.ContVal Then
             Container.ContVal = NewVal
@@ -47,7 +48,6 @@ Private Sub UpdateMin(ByRef Container As DataCont, Ticker As String, NewVal As D
     '   NewVal (Double) :   Value to compare
     'Returns:
     '   None
-
     If Container.Init Then
         If NewVal < Container.ContVal Then
             Container.ContVal = NewVal
@@ -60,7 +60,7 @@ Private Sub UpdateMin(ByRef Container As DataCont, Ticker As String, NewVal As D
 End Sub
 
 Private Sub UpdateGratest(ByRef MyWs As Worksheet, ByRef MyInc As DataCont, ByRef MyDec As DataCont, ByRef MyVol As DataCont)
-    'Function used to update the gratest values
+    'Function used to update the greatest values
     'Args:
     '   MyWs (Worksheet):   Reference to the worksheet
     '   MyInc (DataCont):   Reference to the greatest increase
@@ -68,7 +68,6 @@ Private Sub UpdateGratest(ByRef MyWs As Worksheet, ByRef MyInc As DataCont, ByRe
     '   MyVol (DataCont):   Reference to the greatest total volume
     'Returns:
     '   None
-
     'Constant x,y coordinates to populate the summary
     Const RowStart As Integer = 1
     Const ColumnStart As Integer = 14
@@ -132,8 +131,8 @@ End Sub
 
 Private Sub EraseTable(ByRef MWs As Worksheet, RowPar As Long, ColPar As Long)
     'Function used to erase a table, a column and row are passed as
-    'parametrs for the upper letf corner of the table. The function
-    'will iterate colums and rows until it finds and empty cells and
+    'parameters for the upper left corner of the table. The function
+    'will iterate columns and rows until it finds and empty cells and
     'erase the content in the matrix
     '
     'Args:
@@ -142,9 +141,8 @@ Private Sub EraseTable(ByRef MWs As Worksheet, RowPar As Long, ColPar As Long)
     '   ColPar (Long):      Column for upper left corner of the table to erase
     'Returns:
     '   None
-
-    'Variable used for sheet managment
-    'Row and Columns variables
+    'Variable used for sheet management
+    'Row and Columns variables 
     Dim RowIndex As Long
     Dim ColIndex As Long
     
@@ -334,6 +332,14 @@ End Sub
 
 
 Sub StockAnalysis()
+    'Function used to perform the data analysis per workbook
+    'every sheet will be opened and processed looking for the
+    'same parameters. A message will be displayed after the
+    'analysis is performed 
+    'Args:
+    '   None
+    'Returns:
+    '   None 
     For Each CurrentWs In Worksheets
         TotalVal CurrentWs.Name
     Next
@@ -341,6 +347,14 @@ Sub StockAnalysis()
 End Sub
 
 Sub CleanStockAnalysis()
+    'Function used to clear the data analysis per workbook
+    'every sheet will be opened and processed looking for the
+    'same parameters. A message will be displayed after the
+    'analysis clean up is performed 
+    'Args:
+    '   None
+    'Returns:
+    '   None 
     Const SumTableRow As Integer = 1
     Const SumTableCol As Integer = 9
     Const MaxTableRow As Integer = 1
@@ -356,6 +370,12 @@ End Sub
 
 
 Public Sub AnalysisSelection()
+    'Function as entry point for the macro, a really simple GUI
+    'was implemented using InputBox interface 
+    'Args:
+    '   None
+    'Returns:
+    '   None     
     Dim myInputBoxVariable As String
     myInputBoxVariable = InputBox("Please type the number for one of the following options" & vbLf & vbLf & "1. Perform stock analysis" & vbLf & "2. Clean stock analysis ")
     Select Case myInputBoxVariable
