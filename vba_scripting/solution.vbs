@@ -129,27 +129,23 @@ Private Sub UpdateGratest(ByRef MyWs As Worksheet, ByRef MyInc As DataCont, ByRe
     MyWs.Cells(RowIndex, ColumnIndex).EntireColumn.AutoFit
 End Sub
 
-Private Sub EraseTable(SheetName As String, RowPar As Long, ColPar As Long)
+Private Sub EraseTable(ByRef MWs As Worksheet, RowPar As Long, ColPar As Long)
     'Function used to erase a table, a column and row are passed as
     'parametrs for the upper letf corner of the table. The function
     'will iterate colums and rows until it finds and empty cells and
     'erase the content in the matrix
     '
     'Args:
-    '   SheetName (string): Name of the worksheet to process
+    '   MWs (Worksheet):   Reference to the worksheet
     '   RowPar (Long):      Row for upper left corner of the table to erase
     '   ColPar (Long):      Column for upper left corner of the table to erase
     'Returns:
     '   None
 
     'Variable used for sheet managment
-    Dim MWs As Worksheet
     'Row and Columns variables
     Dim RowIndex As Long
     Dim ColIndex As Long
-
-    'Construct the work sheet object
-    Set MWs = ActiveWorkbook.Worksheets(SheetName)
     
     'Init row and column for table erasing
     RowIndex = RowPar
@@ -347,13 +343,11 @@ Sub CleanStockAnalysis()
     Const SumTableCol As Integer = 9
     Const MaxTableRow As Integer = 1
     Const MaxTableCol As Integer = 14
-
+    Dim MWs As Worksheet
     For Each CurrentWs In Worksheets
-        EraseTable SheetName:=CurrentWs.Name, RowPar:=SumTableRow, ColPar:=SumTableCol
-        EraseTable SheetName:=CurrentWs.Name, RowPar:=MaxTableRow, ColPar:=MaxTableCol
+        Set MWs = ActiveWorkbook.Worksheets(CurrentWs.Name)
+        EraseTable MWs:=MWs, RowPar:=SumTableRow, ColPar:=SumTableCol
+        EraseTable MWs:=MWs, RowPar:=MaxTableRow, ColPar:=MaxTableCol
     Next
-
-    
-
 End Sub
 
