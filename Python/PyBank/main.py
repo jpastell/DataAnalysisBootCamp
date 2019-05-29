@@ -12,6 +12,18 @@ import csv
 import collections
 
 def log(msg,file_hdlr):
+    '''
+    Function used to print the value to std out
+    and a file manages by the file handlers passed
+    as parameter.
+
+    Args:
+        msg (str):  String to be printed
+        file_hdlr(file object): file handler
+
+    Returns:
+        None
+    '''
     file_hdlr.write(f"{msg}\n")
     print(msg)
 
@@ -24,7 +36,23 @@ def log_results(total_monts,
                 great_dec_name,
                 great_dec,
                 log_path):
+    '''
+    Function used to print the analysis of the financial
+    information stored in the csv file
+    Args:
+        total_monts (int):      Total number of months
+        average_change (float): Average change month by month
+        great_incr_name (str):  Name fo the month that registered
+                                the greates increase
+        great_incr (int):       Greatest increase value
+        great_dec_name (str):   Name fo the month that registered
+                                the greates decrease
+        great_dec (int):        Greatest decrease value
+        log_path (str):         Path for the file used to store the log
 
+    Returns:
+        None
+    '''
     #Open the file    
     hldr = open(log_path,'w')
     #Write the data
@@ -39,9 +67,10 @@ def log_results(total_monts,
     hldr.close()
 
 
-#Get the file for the CSV file
+#Get the file path for the CSV file
 __thisdir__ = os.path.dirname(os.path.abspath(__file__))
 __csv_path__ = os.path.join(__thisdir__,"Resources","budget_data.csv")
+#Get the file path for the log
 __log_path__ = os.path.join(__thisdir__,"financial_analysis.log")
 
 #Constants for indexing rows
@@ -93,8 +122,10 @@ with open(__csv_path__, newline='') as csvfile:
             #Set the flag for next row update
             init_flag = True
 
-#Calculate the avergae
-delata_avg = delata_avg/(csvreader.line_num-2)
+#Calculate the avergae if value is negative then we have 1 row then delata_avg
+#will get the entire change
+if csvreader.line_num-2 > 0:
+    delata_avg = delata_avg/(csvreader.line_num-2)
 
 #Print the results
 log_results(csvreader.line_num-1,
