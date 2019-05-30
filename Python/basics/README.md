@@ -10,7 +10,7 @@ Solution for the assignment defined at:  https://github.com/the-Coding-Boot-Camp
 1. Clone the repository:
 
 ```
-git clone https://github.com/jpastell/DataAnalysisBootCamp/tree/master/Python/basics
+git clone https://github.com/jpastell/DataAnalysisBootCamp/tree/master/Python/basics .
 ```
 
 2. Execute main.py in each directory PyBank and PyPoll
