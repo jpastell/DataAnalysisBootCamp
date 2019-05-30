@@ -1,6 +1,6 @@
 '''
 Scipt used to perform analysis ober csv file used
-to sotre raw bank information
+to sotre raw votes for elections
 
 Author: Juan Pablo Castellanos Flores
 
@@ -24,9 +24,10 @@ ColumnIndex = collections.namedtuple('ColumnIndex',['id','county','canidate'])
 data = ColumnIndex(0,1,2)
 
 
-#Dictionary used to store candidate information
+#Dictionary used to store candidates information
 results = dict()
 
+#Generic log method
 def log(msg,file_hdlr):
     '''
     Function used to print the value to std out
@@ -43,6 +44,7 @@ def log(msg,file_hdlr):
     file_hdlr.write(f"{msg}\n")
     print(msg)
 
+#Logging results method
 def log_results(total, res_dic, log_path):
     '''
     Function used to print the analysis of the financial
@@ -87,8 +89,6 @@ with open(__csv_path__, newline='') as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',')
     # Skip the header
     header = next(csvreader)
-
-    
     # Read each row of data after the header and process the information
     for row in csvreader:
             count = results.get(row[data.canidate])
@@ -97,7 +97,7 @@ with open(__csv_path__, newline='') as csvfile:
             else:
                 #Initilize the candidate data
                 results.update({row[data.canidate]:1})
-            
+#Print the results
 log_results(csvreader.line_num-1, results, __log_path__)
 
 

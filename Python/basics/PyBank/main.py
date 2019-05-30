@@ -11,6 +11,7 @@ import os
 import csv
 import collections
 
+#Generic log method
 def log(msg,file_hdlr):
     '''
     Function used to print the value to std out
@@ -27,7 +28,7 @@ def log(msg,file_hdlr):
     file_hdlr.write(f"{msg}\n")
     print(msg)
 
-
+#Method used to log the results
 def log_results(total_monts,
                 total_profit,
                 average_change,
@@ -79,10 +80,14 @@ budget_data = ColumnIndex(0,1)
 
 #Variable used for initilization
 init_flag = False
+#Setting profit to defual value
 previos_profit = 0
+#Encapsulated increase and decrease to dictionaries to be more organized
 greates_increase = {budget_data.date:"",budget_data.profit:0}
 greates_decrease = {budget_data.date:"",budget_data.profit:0}
+#Total value
 total_val = 0
+#Changes between rows
 delata_avg = 0
 
 #Open the file for anaylys
