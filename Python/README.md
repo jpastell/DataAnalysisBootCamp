@@ -1,10 +1,9 @@
-# Unit 3 | Python Solution
+# Python Area
 
 ## Description:
 
-Solution for the assignment defined at:  https://github.com/the-Coding-Boot-Camp-at-UT/UTAMCB201904DATA3/tree/master/03-Python/Homework/Instructions
+Section created to allocate different python assignments
 
-### Under development ...
 
 
 
