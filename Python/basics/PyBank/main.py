@@ -1,9 +1,8 @@
 '''
-Scipt used to perform analysis ober csv file used
-to sotre raw bank information
+Script used to perform analysis over csv file used
+to store raw bank information
 
 Author: Juan Pablo Castellanos Flores
-
 '''
 
 #General imports
@@ -11,7 +10,7 @@ import os
 import csv
 import collections
 
-#Generic log method
+
 def log(msg,file_hdlr):
     '''
     Function used to print the value to std out
@@ -28,7 +27,6 @@ def log(msg,file_hdlr):
     file_hdlr.write(f"{msg}\n")
     print(msg)
 
-#Method used to log the results
 def log_results(total_monts,
                 total_profit,
                 average_change,
@@ -74,7 +72,7 @@ __csv_path__ = os.path.join(__thisdir__,"Resources","budget_data.csv")
 #Get the file path for the log
 __log_path__ = os.path.join(__thisdir__,"financial_analysis.log")
 
-#Constants for indexing rows
+#Constants for row indexing
 ColumnIndex = collections.namedtuple('ColumnIndex',['date','profit'])
 budget_data = ColumnIndex(0,1)
 
@@ -82,7 +80,7 @@ budget_data = ColumnIndex(0,1)
 init_flag = False
 #Setting profit to defual value
 previos_profit = 0
-#Encapsulated increase and decrease to dictionaries to be more organized
+#Encapsulate increase and decrease to dictionaries to be more organized
 greates_increase = {budget_data.date:"",budget_data.profit:0}
 greates_decrease = {budget_data.date:"",budget_data.profit:0}
 #Total value
