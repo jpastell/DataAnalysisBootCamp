@@ -1,9 +1,8 @@
 '''
-Scipt used to perform analysis ober csv file used
-to sotre raw votes for elections
+Script used to perform analysis over csv file used
+to store raw votes for elections
 
 Author: Juan Pablo Castellanos Flores
-
 '''
 
 #General imports
@@ -27,7 +26,6 @@ data = ColumnIndex(0,1,2)
 #Dictionary used to store candidates information
 results = dict()
 
-#Generic log method
 def log(msg,file_hdlr):
     '''
     Function used to print the value to std out
@@ -44,7 +42,6 @@ def log(msg,file_hdlr):
     file_hdlr.write(f"{msg}\n")
     print(msg)
 
-#Logging results method
 def log_results(total, res_dic, log_path):
     '''
     Function used to print the analysis of the financial
