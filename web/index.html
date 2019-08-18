@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Homework Index Page</title>  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="bootstrap.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+      <div class="container"> 
+        <!-- Main reference -->
+        <a href="#" class="navbar-brand">Latitude</a>
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Select the items to colllapse-->
+        <div class="navbar-collapse collapse " id="navbarResponsive" style="">
+          <!-- Sub-Navigation bar -->
+          <ul class="navbar-nav ml-auto">
+            <!-- Drop down -->
+            <!-- <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Plots</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="temperature.html">Temperature</a>
+                  <a class="dropdown-item" href="humidity.html">Humidity</a>
+                  <a class="dropdown-item" href="cloundiness.html">Cloundiness</a>
+                  <a class="dropdown-item" href="wind_speed.html">Wind Speed</a>  
+              </div>
+            </li>
+            <!-- Nav item Comparison -->
+            <li class="nav-item">
+              <a class="nav-link" href="comparison.html">Comparison</a>
+            </li>
+            <!-- Nav item Data -->
+            <li class="nav-item">
+              <a class="nav-link" href="data_layout.html">Data</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="row" style="margin-top: 6rem;">
+    </div>
+
+    <div class="container">
+      <div class="row"> <!--First row-->
+          <div class="col-lg-7 col-md-7 col-sm-12" ><!-- Sumary -->
+              <div class="card border-primary mb-3">
+                  <div class="card-block ">
+                      <h4 class="card-header">Sumary: Latitude vs. X</h4>
+                      <div class="card-body">
+                        <img class="float-left" src="./Resources/assets/images/Fig1.png" style="width:200px;height:200px;" alt="Temperature">
+                        <p class="card-text">
+                          The porpuse of this project was to analyze how weather changes as you get closer to the equator. 
+                          To accomplish this analysis, we first pilled data from the OpenEatherMap API to assemble a dataset on over 500 cities.
+                          <br>
+                          <br>
+                          After assembling the dataset, we used Matploitlib to plot various aspects of the weather vs latitude. Factors we lokked
+                          at inlcuded: temperature, cloudiness, wind speed, and humidity. This site provides the source data and visualizations
+                          created as part of the analysis, as well as explanations and descriptions of any trends and correlations.
+                          </p>
+                      </div>
+                  </div>
+              </div>
+          </div> <!-- End Sumary -->
+          <div class="col-lg-5 col-md-5 col-sm-12"><!-- visualizations -->
+              <div class="card border-primary mb-3" style="min-width: 25rem;">
+                  <div class="card-block ">
+                    <h4 class="card-header">visualizations</h4>
+                    <div class="card-body">
+                      <div class="container">
+                        <div class="row">  
+                          <div class="col-lg-6 col-md-6 col-sm-6">
+                            <img class="center" src="./Resources/assets/images/Fig1.png" style="width:150px;height:150px;" alt="Temperature">
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-sm-6">
+                            <img class="center" src="./Resources/assets/images/Fig2.png" style="width:150px;height:150px;" alt="Humidity">
+                          </div>
+                        </div>
+                        <div class="row">  
+                          <div class="col-lg-6 col-md-6 col-sm-6">
+                            <img class="center" src="./Resources/assets/images/Fig3.png" style="width:150px;height:150px;" alt="Cloundiness">
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-sm-6">
+                            <img class="center" src="./Resources/assets/images/Fig4.png" style="width:150px;height:150px;" alt="Wind Speed">
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+          </div> <!-- End Visualizations -->
+      </div><!--End of first row-->
+    </div>
+    <div class="row" style="margin-top: 3rem;">
+    </div>
+    <div class="fixed-bottom navbar-dark bg-primary footer1" > <!-- Fotter -->
+        <p><small> © jpastell all rigths reserved</small></p>
+    </div>
+
+</body>
+
+</html>
