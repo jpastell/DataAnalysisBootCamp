@@ -11,22 +11,11 @@ function buildMetadata(sample) {
     selector.html("")
     //Display the new data
     for (var key in meta) {
-        console.log(key, meta[key]);
+        //console.log(key, meta[key]);
         //selector.append("p").attr('class', 'card-text').append("small").text(key+":\n"+meta[key]);
         selector.append("p").attr('class', 'card-text').text(key+":\n"+meta[key]);
     }
   });
-
-
-
-    // Use d3 to select the panel with id of `#sample-metadata`
-    //var selector = d3.select("#sample-metadata");
-    // Use `.html("") to clear any existing metadata
-
-    // Use `Object.entries` to add each key and value pair to the panel
-    // Hint: Inside the loop, you will need to use d3 to append new
-    // tags for each key-value in the metadata.
-
 
     // BONUS: Build the Gauge Chart
     // buildGauge(data.WFREQ);
@@ -36,11 +25,32 @@ function buildCharts(sample) {
 
   // @TODO: Use `d3.json` to fetch the sample data for the plots
 
-    // @TODO: Build a Bubble Chart using the sample data
+  // @TODO: Build a Bubble Chart using the sample data
 
-    // @TODO: Build a Pie Chart
-    // HINT: You will need to use slice() to grab the top 10 sample_values,
-    // otu_ids, and labels (10 each).
+  // @TODO: Build a Pie Chart
+  // HINT: You will need to use slice() to grab the top 10 sample_values,
+  // otu_ids, and labels (10 each).
+
+  //Clear the previos plot
+  Plotly.purge("pie");
+  dataURL = '/samples/'
+  var sampleURL = dataURL.concat(sample);
+  d3.json(sampleURL).then((data) => {
+      //var layout = { margin: { t: 0 } }
+      outIds = data.otu_ids.slice(0,10);
+      sampVal = data.sample_values.slice(0,10);
+      outLabels = data.otu_labels.slice(0,10);
+      var pieTrace = {
+        values : sampVal,
+        labels:outIds,
+        hoverinfo:"text",
+        hovertext:outLabels,
+        type: 'pie'
+      };
+
+      //console.log(slicedData);
+      Plotly.plot("pie", [pieTrace]);
+  });
 }
 
 function init() {
@@ -65,7 +75,7 @@ function init() {
 
 function optionChanged(newSample) {
   // Fetch new data each time a new sample is selected
-  //buildCharts(newSample);
+  buildCharts(newSample);
   buildMetadata(newSample);
 }
 
